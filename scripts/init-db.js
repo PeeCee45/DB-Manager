@@ -7,6 +7,7 @@ async function initDb() {
   const port = parseInt(process.env.APP_DB_PORT || '3306');
   const user = process.env.APP_DB_USER || 'root';
   const password = process.env.APP_DB_PASSWORD || '';
+  const useSSL = process.env.APP_DB_SSL === "true";
 
   const connection = await mysql.createConnection({
     host,
@@ -14,6 +15,13 @@ async function initDb() {
     user,
     password,
     multipleStatements: true,
+    ...(useSSL
+      ? {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {}),
   });
 
   const schemaPath = path.join(__dirname, 'schema.sql');
