@@ -9,6 +9,7 @@ export function getAppDb(): mysql.Pool {
     const database = process.env.APP_DB_NAME || 'db_manager';
     const user = process.env.APP_DB_USER || 'root';
     const password = process.env.APP_DB_PASSWORD || '';
+    const useSSL = process.env.APP_DB_SSL === "true";
 
     pool = mysql.createPool({
       host,
@@ -21,6 +22,13 @@ export function getAppDb(): mysql.Pool {
       queueLimit: 0,
       enableKeepAlive: true,
       keepAliveInitialDelay: 0,
+      ...(useSSL
+        ? {
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          }
+        : {}),
     });
   }
   return pool;
