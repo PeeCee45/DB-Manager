@@ -255,6 +255,18 @@ db-manager/
 
 ---
 
+## Footer / Attribution
+
+The app footer displays:
+
+> Created / Developed by Promise Ibeh · [github.com/PeeCee45](https://github.com/PeeCee45)
+
+To update or remove this attribution, edit:
+
+- **Component:** `src/components/layout/Footer.tsx`
+- **Layout integration:** `src/app/layout.tsx` (the `<Footer />` component at the bottom)
+
+
 ## License
 
 MIT

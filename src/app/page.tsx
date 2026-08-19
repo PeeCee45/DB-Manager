@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-slate-100">
       <div className="text-center max-w-md px-6">
         <div className="w-16 h-16 bg-primary-600 rounded-xl mx-auto mb-6 flex items-center justify-center">
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
