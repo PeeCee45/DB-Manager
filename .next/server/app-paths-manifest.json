@@ -1,7 +1,1 @@
-{
-  "/database/[connectionId]/[database]/[table]/page": "app/database/[connectionId]/[database]/[table]/page.js",
-  "/database/[connectionId]/[database]/[table]/structure/page": "app/database/[connectionId]/[database]/[table]/structure/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/settings/page": "app/settings/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js"
-}
+{}
