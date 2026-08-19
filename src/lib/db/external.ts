@@ -1,3 +1,4 @@
+// src/lib/db/external.ts
 import mysql from 'mysql2/promise';
 import { decrypt } from '@/lib/crypto';
 import { getAppDb } from './app';
@@ -10,6 +11,8 @@ interface ConnectionConfig {
   password: string;
   database?: string;
 }
+
+const useSSL = process.env.APP_DB_SSL === "true";
 
 export async function getConnectionConfig(connectionId: number, userId: number): Promise<ConnectionConfig> {
   const db = await getAppDb();
@@ -43,6 +46,13 @@ export async function createExternalConnection(config: ConnectionConfig): Promis
     database: config.database,
     connectTimeout: 10000,
     enableKeepAlive: true,
+    ...(useSSL
+      ? {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {}),
   });
 
   return connection;
@@ -59,6 +69,13 @@ export async function testConnection(config: ConnectionConfig): Promise<{ succes
       password: config.password,
       database: config.database,
       connectTimeout: 10000,
+      ...(useSSL
+      ? {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {}),
     });
 
     await connection.ping();
