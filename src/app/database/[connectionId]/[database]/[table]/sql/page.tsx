@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
+import { formatCellValue } from "@/lib/utils";
 import { Play, AlertTriangle, AlertCircle, Check } from "lucide-react";
 
 export default function SqlPage({ params }: { params: { connectionId: string; database: string; table: string } }) {
@@ -137,7 +138,7 @@ export default function SqlPage({ params }: { params: { connectionId: string; da
                   <tr key={i} className="hover:bg-slate-50">
                     {result.columns!.map(col => (
                       <td key={col} className="px-4 py-2 text-slate-700 whitespace-nowrap max-w-[200px] truncate">
-                        {row[col] === null ? <span className="text-slate-400 italic">NULL</span> : String(row[col])}
+                        {row[col] === null ? <span className="text-slate-400 italic">NULL</span> : formatCellValue(row[col])}
                       </td>
                     ))}
                   </tr>

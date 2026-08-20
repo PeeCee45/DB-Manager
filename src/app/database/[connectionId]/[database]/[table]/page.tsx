@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
+import { formatCellValue } from "@/lib/utils";
 import { ArrowLeft, Search, ChevronLeft, ChevronRight, Pencil, Trash2, Plus, X, Check, AlertCircle } from "lucide-react";
 
 interface Column {
@@ -161,7 +162,7 @@ export default function TablePage({ params }: { params: { connectionId: string; 
 
   if (!user) return null;
 
-  const visibleColumns = columns.slice(0, 8);
+  const visibleColumns = columns.slice(0, 15);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -246,7 +247,7 @@ export default function TablePage({ params }: { params: { connectionId: string; 
                       </td>
                       {visibleColumns.map(col => (
                         <td key={col.name} className="px-3 py-2 text-slate-700 whitespace-nowrap max-w-[200px] truncate">
-                          {row[col.name] === null ? <span className="text-slate-400 italic">NULL</span> : String(row[col.name])}
+                          {row[col.name] === null ? <span className="text-slate-400 italic">NULL</span> : formatCellValue(row[col.name])}
                         </td>
                       ))}
                       {columns.length > 8 && <td className="px-3 py-2 text-slate-400">...</td>}
@@ -312,7 +313,7 @@ export default function TablePage({ params }: { params: { connectionId: string; 
                     </label>
                     <input
                       className="input-field"
-                      value={editingRow[col.name] === null ? "" : String(editingRow[col.name] || "")}
+                      value={editingRow[col.name] === null ? "" : formatCellValue(editingRow[col.name])}
                       onChange={e => setEditingRow({ ...editingRow, [col.name]: e.target.value })}
                     />
                   </div>
